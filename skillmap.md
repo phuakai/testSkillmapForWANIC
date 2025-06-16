@@ -14,7 +14,7 @@
 * description: Intro to our tutorial cards
 * tags: easy
 
-* url: https://github.com/microsoft/pxt-skillmap-sample/tutorials/interface/activity1 
+* url: https://github.com/phuakai/testSkillmapForWANIC/blob/main/tutorials/interface/activity1.md
 * imageUrl: https://raw.githubusercontent.com/microsoft/pxt-skillmap-sample/main/img/interface/activity1.png
 
 ## space
