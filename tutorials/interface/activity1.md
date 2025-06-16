@@ -34,15 +34,9 @@ game.onUpdateInterval(5000, function () {
 
 ![Psyched Monkey](/static/skillmap/interface/monkey.png "Psyched Monkey is Ready!" )
 
-**Are you ready to start coding your own games?**
+**Are you ready to Fight me????**
 
-Complete this tutorial to learn how to:
-- follow tutorial prompts
-- find blocks in the toolbox
-- build code in the workspace
-- run your game on the built-in simulator 
-
-Before you know it, you'll have an arcade game of your very own!
+TEWSTETTETSTn!
 
 ## step 1 
 
