@@ -14,7 +14,7 @@
 * description: TESTV2V3V5
 * tags: easy
 
-* url:https://github.com/phuakai/testSkillmapForWANIC/tutorials/interface/activity1
+* url: https://github.com/phuakai/testSkillmapForWANIC/tutorials/interface/activity1
 * imageUrl: https://raw.githubusercontent.com/microsoft/pxt-skillmap-sample/main/img/interface/activity1.png
 
 ## space
