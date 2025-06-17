@@ -3,7 +3,8 @@
     "version": "0.0.1",
     "description": "",
     "dependencies": {
-        "device": "*"
+        "device": "*",
+        "Arcade character animations" : "github:microsoft/arcade-character-animations"
     },
     "files": [
         "README.md",
