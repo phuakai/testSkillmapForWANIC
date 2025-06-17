@@ -32,6 +32,10 @@ game.onUpdateInterval(5000, function () {
 
 ## Introduction @unplugged
 
+```package
+arcade-character-animations
+```
+
 ![Psyched Monkey](/static/skillmap/interface/monkey.png "Psyched Monkey is Ready!" )
 
 **Are you ready to Fight me????**
@@ -76,7 +80,33 @@ Not all blocks will connect with one another, but we'll talk more about that lat
 
 🔲 Click inside the text area of the ``||game:splash "___"||`` block 
 and change the current sentence to something a little more exciting.
-
+TESTETSETESTEST. 
+``||character:character||``block test.
+```block
+characterAnimations.loopFrames(
+mySprite,
+[img`
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    `],
+500,
+characterAnimations.rule(Predicate.NotMoving)
+)
+```
 ---
 
 **Tip:** Did you notice that the first use of the word __workspace__ had a special look? 
