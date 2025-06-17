@@ -11,7 +11,7 @@
 
 * name: TRYING TO MAKE A SKILLMAP TEST
 * type: tutorial
-* description: Intro to our tutorial cards
+* description: TESTV2V3V5
 * tags: easy
 
 * url:https://github.com/phuakai/testSkillmapForWANIC/tutorials/interface/activity1
