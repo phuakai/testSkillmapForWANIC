@@ -2,7 +2,7 @@
 * name: Game Maker Guide
 * description: Level up your game making skills by completing the tutorials in this guide.
 
-## Animations
+## Directional movement and shooting
 * name: Learn to move and shoot in different directions!
 * description: 
 * completionUrl: https://microsoft.github.io/pxt-skillmap-sample/certificates/understanding-arcade-tutorials.pdf
