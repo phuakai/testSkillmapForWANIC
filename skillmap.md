@@ -2,9 +2,9 @@
 * name: Game Maker Guide
 * description: Level up your game making skills by completing the tutorials in this guide.
 
-## interface
-* name: Learn to use MakeCode Arcade
-* description: This will teach you how to complete tutorials in Microsoft MakeCode Arcade.
+## Animations
+* name: Learn to move with animations
+* description: This will teach you how to have your characters move in different directions with different animations!
 * completionUrl: https://microsoft.github.io/pxt-skillmap-sample/certificates/understanding-arcade-tutorials.pdf
 
 ### interface-activity1
