@@ -187,7 +187,7 @@ characterAnimations.setCharacterState(mySprite, characterAnimations.rule(Predica
 
 
 
-Let's start by adding a ``||characterAnimations.loopFrames||`` block into a ``||loops:forever||`` container.
+Let's start by adding a ``||characterAnimations.loopFrames||`` block into the on start container.
 
 ---
 
@@ -340,7 +340,7 @@ Try moving upwards again!
 
 ## Setting the other directions
 
-Your hero should now be able to start and end it's moving animation! All you have to do now is repeat the last 2 steps for the other directions.
+Your hero should now be able to start and end it's moving animation! All you have to do now is repeat the last 2 steps for the other directions. Remember to change the animations to the different directions!
 
 ## Conclusion 
 
