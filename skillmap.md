@@ -18,15 +18,15 @@
 * imageUrl: https://raw.githubusercontent.com/microsoft/pxt-skillmap-sample/main/img/interface/activity1.png
 
 ## space
-* name: Design a Space Explorer
-* description: Let's explore the depths of space! We'll design a vessel for space travel, add some enemies, and populate the universe with planets.
+* name: IN PROGRESS
+* description: Lets write more tutorials!
 * completionUrl: https://microsoft.github.io/pxt-skillmap-sample/certificates/design-a-space-explorer.pdf
 
-### space-activity1
+### Please follow my tutorials or die
 
-* name: Ship Design
+* name: In progress
 * type: tutorial
-* description: Draw and code a spaceship!
+* description: description here
 * tags: easy
 * next: space-activity2
 
@@ -39,7 +39,6 @@
 * type: tutorial
 * description: Customize your ship with projectiles and effects.
 * tags: easy, projectiles, kinds
-* next: space-activity3
 
 * url: https://github.com/microsoft/pxt-skillmap-sample/tutorials/space/activity2
 * imageUrl: https://raw.githubusercontent.com/microsoft/pxt-skillmap-sample/main/img/space/activity2.png
