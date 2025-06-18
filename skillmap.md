@@ -24,9 +24,9 @@
 
 ### Please follow my tutorials or die
 
-* name: In progress
+* name: Vectors and directional shooting.
 * type: tutorial
-* description: description here
+* description: This tutorial teaches the concept of vectors and how to use them to have sprites move in any direction.
 * tags: easy
 * next: space-activity2
 
