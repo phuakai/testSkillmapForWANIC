@@ -3,15 +3,15 @@
 * description: Level up your game making skills by completing the tutorials in this guide.
 
 ## Animations
-* name: Learn to move with animations
-* description: This will teach you how to have your characters move in different directions with different animations!
+* name: Learn to move and shoot in different directions!
+* description: 
 * completionUrl: https://microsoft.github.io/pxt-skillmap-sample/certificates/understanding-arcade-tutorials.pdf
 
-### interface-activity1
+### Moving with animations
 
-* name: TRYING TO MAKE A SKILLMAP TEST
+* name: Moving in different directions.
 * type: tutorial
-* description: TESTV2V3V5
+* description: This will teach you how to have your characters move in different directions with different animations!
 * tags: easy
 
 * url: https://github.com/phuakai/testSkillmapForWANIC/tutorials/interface/activity1
