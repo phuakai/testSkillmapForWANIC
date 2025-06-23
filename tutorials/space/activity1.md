@@ -78,6 +78,7 @@ characterAnimations.rule(predicate.NotMoving)
 characterAnimations.clearCharacterState(mySprite)
 characterAnimations.setCharacterState(mySprite, characterAnimations.rule(Predicate.NotMoving))
 loops.forever()
+
 ```
 
 ### @explicitHints true
@@ -98,16 +99,6 @@ Big Monkey Small Man!
 ## 
 
 **⭐Welcome⭐**
-
-Let's learn how to use the character extension to make our sprite move in different directions!
-
----
-
-
-## Shooting Projectiles
-
-
----
 
 In this tutorial, we will be learning how to make a ghost enemy shoot in the player characters direction.
 
@@ -181,127 +172,55 @@ Give this sprite a new variable name, like "bullet" and set it's kind to project
 Use any sprite you want the ghost to shoot, and try to set it's position to the same spot as the ghost.
 
 
-#### ~ tutorialhint 
-```blocks
-let Bullet = sprites.create(img`
-    . . . . c c c b b b b b . . . . 
-    . . c c b 4 4 4 4 4 4 b b b . . 
-    . c c 4 4 4 4 4 5 4 4 4 4 b c . 
-    . e 4 4 4 4 4 4 4 4 4 5 4 4 e . 
-    e b 4 5 4 4 5 4 4 4 4 4 4 4 b c 
-    e b 4 4 4 4 4 4 4 4 4 4 5 4 4 e 
-    e b b 4 4 4 4 4 4 4 4 4 4 4 b e 
-    . e b 4 4 4 4 4 5 4 4 4 4 b e . 
-    8 7 e e b 4 4 4 4 4 4 b e e 6 8 
-    8 7 2 e e e e e e e e e e 2 7 8 
-    e 6 6 2 2 2 2 2 2 2 2 2 2 6 c e 
-    e c 6 7 6 6 7 7 7 6 6 7 6 c c e 
-    e b e 8 8 c c 8 8 c c c 8 e b e 
-    e e b e c c e e e e e c e b e e 
-    . e e b b 4 4 4 4 4 4 4 4 e e . 
-    . . . c c c c c e e e e e . . . 
-    `, SpriteKind.Projectile)
-Ghost.setPosition(80, 10)
+
+## Points and Vectors
+
+Before we make our bullets move, we must first understand **vectors**. To get the vector, or line,
+from the bullet to the player, we should take the player coordinate and subtract the bullets coordinate.
+A good way to remember is always subtract the destination point from the origin.
+
+## Velocity
+Now with our vector, we can use it to make things move. The term **velocity** means the speed and direction that an object is moving in.
+With makecode, we can set sprites to a set velocity. This uses a ``||sprites.set sprite velocity||`` block, that has vx (velocity x) and vy (velocity y) as it's input.
+
+Try setting the bullets velocity to (0, 50) and see what happens when you press run.
+
+## What happens when you set the velocity to a different number?  @unplugged
+
+![Directional Projectiles](/static/skillmap/space/vxvy.gif "Round and Round")
+
+## Spawning on a timer
+
+Right now, our ghost should be firing just one projectile. To have it always fire on a set interval, we can use a ``||loops.forever||`` loop
+together with a ``||loops.Pause for||``. Move the blocks for setting the bullets sprite, position and velocity to this new forever block. 
+Set the timer to 1000 ms. The ghost should now be firing a bullet every second.
+
+#### ~ tutorialhint
+```block
+forever(function () {
+    pause(1000)
+    Bullet = sprites.create(img`
+        . . . . c c c b b b b b . . . . 
+        . . c c b 4 4 4 4 4 4 b b b . . 
+        . c c 4 4 4 4 4 5 4 4 4 4 b c . 
+        . e 4 4 4 4 4 4 4 4 4 5 4 4 e . 
+        e b 4 5 4 4 5 4 4 4 4 4 4 4 b c 
+        e b 4 4 4 4 4 4 4 4 4 4 5 4 4 e 
+        e b b 4 4 4 4 4 4 4 4 4 4 4 b e 
+        . e b 4 4 4 4 4 5 4 4 4 4 b e . 
+        8 7 e e b 4 4 4 4 4 4 b e e 6 8 
+        8 7 2 e e e e e e e e e e 2 7 8 
+        e 6 6 2 2 2 2 2 2 2 2 2 2 6 c e 
+        e c 6 7 6 6 7 7 7 6 6 7 6 c c e 
+        e b e 8 8 c c 8 8 c c c 8 e b e 
+        e e b e c c e e e e e c e b e e 
+        . e e b b 4 4 4 4 4 4 4 4 e e . 
+        . . . c c c c c e e e e e . . . 
+        `, SpriteKind.Projectile)
+    Bullet.setPosition(80, 10)
+    Bullet.setVelocity(mySprite.x - Bullet.x, mySprite.y - Bullet.y)
+})
 ```
-
-## Moving projectiles
-
-
-
-Let's start by adding a ``||characterAnimations.loopFrames||`` block into the on start container.
-
----
-
-Once that is done, pick the animation of the hero moving upwards by clicking on the empty sprite beside loop frames, then click Gallery at the top of the editor window.  
-
----
-
-Set the number to 100ms, or miliseconds. This controls how long the animation will take to finish one loop.
-
----
-
-Lastly, set the condition to **moving up**.
-
----
-
-#### ~ tutorialhint 
-```blocks
-    characterAnimations.loopFrames(
-    mySprite,
-    [img`
-        . . . . . . f f f f . . . . . . 
-        . . . . f f e e e e f f . . . . 
-        . . . f e e e f f e e e f . . . 
-        . . f f f f f 2 2 f f f f f . . 
-        . . f f e 2 e 2 2 e 2 e f f . . 
-        . . f e 2 f 2 f f 2 f 2 e f . . 
-        . . f f f 2 2 e e 2 2 f f f . . 
-        . f f e f 2 f e e f 2 f e f f . 
-        . f e e f f e e e e f e e e f . 
-        . . f e e e e e e e e e e f . . 
-        . . . f e e e e e e e e f . . . 
-        . . e 4 f f f f f f f f 4 e . . 
-        . . 4 d f 2 2 2 2 2 2 f d 4 . . 
-        . . 4 4 f 4 4 4 4 4 4 f 4 4 . . 
-        . . . . . f f f f f f . . . . . 
-        . . . . . f f . . f f . . . . . 
-        `,img`
-        . . . . . . . . . . . . . . . . 
-        . . . . . . f f f f . . . . . . 
-        . . . . f f e e e e f f . . . . 
-        . . . f e e e f f e e e f . . . 
-        . . . f f f f 2 2 f f f f . . . 
-        . . f f e 2 e 2 2 e 2 e f f . . 
-        . . f e 2 f 2 f f f 2 f e f . . 
-        . . f f f 2 f e e 2 2 f f f . . 
-        . . f e 2 f f e e 2 f e e f . . 
-        . f f e f f e e e f e e e f f . 
-        . f f e e e e e e e e e e f f . 
-        . . . f e e e e e e e e f . . . 
-        . . . e f f f f f f f f 4 e . . 
-        . . . 4 f 2 2 2 2 2 e d d 4 . . 
-        . . . e f f f f f f e e 4 . . . 
-        . . . . f f f . . . . . . . . . 
-        `,img`
-        . . . . . . f f f f . . . . . . 
-        . . . . f f e e e e f f . . . . 
-        . . . f e e e f f e e e f . . . 
-        . . f f f f f 2 2 f f f f f . . 
-        . . f f e 2 e 2 2 e 2 e f f . . 
-        . . f e 2 f 2 f f 2 f 2 e f . . 
-        . . f f f 2 2 e e 2 2 f f f . . 
-        . f f e f 2 f e e f 2 f e f f . 
-        . f e e f f e e e e f e e e f . 
-        . . f e e e e e e e e e e f . . 
-        . . . f e e e e e e e e f . . . 
-        . . e 4 f f f f f f f f 4 e . . 
-        . . 4 d f 2 2 2 2 2 2 f d 4 . . 
-        . . 4 4 f 4 4 4 4 4 4 f 4 4 . . 
-        . . . . . f f f f f f . . . . . 
-        . . . . . f f . . f f . . . . . 
-        `,img`
-        . . . . . . . . . . . . . . . . 
-        . . . . . . f f f f . . . . . . 
-        . . . . f f e e e e f f . . . . 
-        . . . f e e e f f e e e f . . . 
-        . . . f f f f 2 2 f f f f . . . 
-        . . f f e 2 e 2 2 e 2 e f f . . 
-        . . f e f 2 f f f 2 f 2 e f . . 
-        . . f f f 2 2 e e f 2 f f f . . 
-        . . f e e f 2 e e f f 2 e f . . 
-        . f f e e e f e e e f f e f f . 
-        . f f e e e e e e e e e e f f . 
-        . . . f e e e e e e e e f . . . 
-        . . e 4 f f f f f f f f e . . . 
-        . . 4 d d e 2 2 2 2 2 f 4 . . . 
-        . . . 4 e e f f f f f f e . . . 
-        . . . . . . . . . f f f . . . . 
-        `],
-    100,
-    characterAnimations.rule(Predicate.MovingUp)
-    )
-```
-
 
 
 ## Setting conditions
