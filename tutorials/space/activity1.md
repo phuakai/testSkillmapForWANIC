@@ -83,10 +83,6 @@ loops.forever()
 
 ### @explicitHints true
 
-```package
-arcade-character-animations
-arcade-character-animations=github:microsoft/arcade-character-animations
-```
 ## 
 
 **⭐Welcome⭐**
@@ -169,14 +165,8 @@ Bullet.setPosition(Ghost.x,Ghost.y))
 ```
 
 
-## Points and Vectors
-
-Before we make our bullets move, we must first understand **vectors**. To get the vector, or line,
-from the bullet to the player, we should take the player coordinate and subtract the bullets coordinate.
-A good way to remember is always subtract the destination point from the origin.
-
 ## Velocity
-Now with our vector, we can use it to make things move. The term **velocity** means the speed and direction that an object is moving in.
+The term **velocity** means the speed and direction that an object is moving in.
 With makecode, we can set sprites to a set velocity. This uses a ``||sprites.set sprite velocity||`` block, that has vx (velocity x) and vy (velocity y) as it's input.
 
 Try setting the bullets velocity to (0, 50) and see what happens when you press run.
@@ -223,11 +213,16 @@ forever(function () {
 ```
 
 
+## Points and Vectors
+
+Before we make our bullets move to the player, we must first understand **vectors**. To get the vector, or line,
+from the bullet to the player, we should take the player coordinate and subtract the bullets coordinate.
+A good way to remember is always subtract the destination point from the origin.
+
+
 ## Firing at the player.
 
-Now that we have the ghost constantly firing, we can move on to making it target the player.
-
-Recalling how to get the vector from the ghost to the player, we can change our set velocity block to do the calculation
+We can change our set velocity block to do the calculation
 using a combination of math blocks. 
 
 Replace the vx value with the ``||math:[] - []||`` block, then add the ``||sprites: [ ] x||`` blocks as the inputs like so.
@@ -275,7 +270,7 @@ Then the length can be it's own variable, direction.
 ```
 
 ## Normalizing our vector
-Finally we're on our last step! Now we just have to divide distanceX and distanceY by our distance variable.
+Finally we're on our last step! Now we just have to divide directionX and directionY by our distance variable.
 
 ```block
     directionY = directionY / distance
