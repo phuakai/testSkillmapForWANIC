@@ -83,19 +83,10 @@ loops.forever()
 
 ### @explicitHints true
 
-## Introduction @unplugged
-
 ```package
 arcade-character-animations
 arcade-character-animations=github:microsoft/arcade-character-animations
 ```
-
-![Psyched Monkey](/static/skillmap/interface/monkey.png "Psyched Monkey is Ready!" )
-
-**Are you ready to Fight me????**
-
-Big Monkey Small Man!
-
 ## 
 
 **⭐Welcome⭐**
@@ -169,8 +160,13 @@ Give this sprite a new variable name, like "bullet" and set it's kind to project
 
 ---
 
-Use any sprite you want the ghost to shoot, and try to set it's position to the same spot as the ghost.
-
+Use any sprite you want the ghost to shoot, and try to set it's position to the same spot as the ghost using the ghosts x and y.
+#### ~ tutorialhint
+```block
+let Bullet : Sprite = null
+let Ghost : Sprite = null
+Bullet.setPosition(Ghost.x,Ghost.y))
+```
 
 
 ## Points and Vectors
@@ -197,8 +193,9 @@ Set the timer to 1000 ms. The ghost should now be firing a bullet every second.
 
 #### ~ tutorialhint
 ```block
+let Bullet: Sprite = null
 forever(function () {
-    pause(1000)
+    
     Bullet = sprites.create(img`
         . . . . c c c b b b b b . . . . 
         . . c c b 4 4 4 4 4 4 b b b . . 
@@ -217,71 +214,114 @@ forever(function () {
         . e e b b 4 4 4 4 4 4 4 4 e e . 
         . . . c c c c c e e e e e . . . 
         `, SpriteKind.Projectile)
-    Bullet.setPosition(80, 10)
-    Bullet.setVelocity(mySprite.x - Bullet.x, mySprite.y - Bullet.y)
+        
+    
+    Bullet.setPosition(80,10)
+    Bullet.setVelocity(0,50)
+    pause(1000)
 })
 ```
 
 
-## Setting conditions
+## Firing at the player.
 
-If you try and move up now, you'll notice that no animation plays! That's because we must first set the conditions that control if the animation runs.
+Now that we have the ghost constantly firing, we can move on to making it target the player.
 
-Let's add them by using a on button press container.
+Recalling how to get the vector from the ghost to the player, we can change our set velocity block to do the calculation
+using a combination of math blocks. 
+
+Replace the vx value with the ``||math:[] - []||`` block, then add the ``||sprites: [ ] x||`` blocks as the inputs like so.
+Do the steps for the vy value too, your final velocity block should look like this.
 ```block
-controller.up.onEvent(ControllerButtonEvent.Pressed, function ()
+let Bullet: Sprite = null
+let mySprite: Sprite = null
+Bullet.setVelocity(mySprite.x - Bullet.x, mySprite.y - Bullet.y)
 ```
 ---
+Try moving around in the level now!
 
-<!-- **Tip:** If you can't find the block you're looking for, try -->
 
+## Vector normalization
 
-Snap ``||characterAnimations:setState to "___"||`` onto the on up button pressed.
+You might have noticed that the closer you are to the ghost, the slower the projectile is.
 
-Now set the state to facing up and moving up.
+This is because when we are closer, the vector from the ghost to the player is shorter, and so the speed is slower. 
 
----
+To avoid this problem, we must use the concept of **normalization.** Normalizing a vector changes the vectors length, or magnitude, to 1, so we can get just the direction.
 
-**Tip:** Click the + icon on the block to add more than one condition.
+To normalize, we must first get the length of the vector. We can think of the vector as the longest side of a right angle triangle, 
+with the two other sides being the x and y axis. We can then use the Pythagoras Theorem to get the length.
 
-#### ~ tutorialhint
+Then, we divide the x and y component by this length. 
+
+In makecode, we use the ``||math:square root [ ] ||`` and ``||math: [ ] **[ ]||`` to get it's length.
+
+## Getting the distance
+
+To make things neater, we can use variables to keep track of our different values.
+The x and y components of the vector can be split into two variables. 
+
 ```block
-characterAnimations.setCharacterState(mySprite, characterAnimations.rule(Predicate.FacingUp, Predicate.MovingUp))
+let Bullet: Sprite = null
+let mySprite: Sprite = null
+    directionX = mySprite.x - Bullet.x
+    directionY = mySprite.y - Bullet.y
 ```
----
 
-Try moving the character up and see what happens!
-
-
-## Stopping animations
-
-You should see that the animation loops, but it never stops even as you stop moving. We have to reset it's conditions when the player stops moving.
-
-Add on button released container.
+Then the length can be it's own variable, direction.
 
 ```block
-controller.up.onEvent(ControllerButtonEvent.Released, function ())
+ distance = Math.sqrt(directionY ** 2 + directionX ** 2)
 ```
----
 
-Now add another set state block and set this one to just facing up. It will be useful to be able to know which direction the player last moved in.
+## Normalizing our vector
+Finally we're on our last step! Now we just have to divide distanceX and distanceY by our distance variable.
 
-#### ~ tutorialhint
 ```block
-controller.up.onEvent(ControllerButtonEvent.Released, function (){
-characterAnimations.setCharacterState(mySprite, characterAnimations.rule(Predicate.FacingUp))
+    directionY = directionY / distance
+    directionX = directionX / distance
+```
+This will change the values in the variables.
+
+With this, we can then set the velocity of the bullet to any number we want, just multiply the direction with a speed.
+
+```block 
+let Bullet: Sprite = null
+Bullet.setVelocity(directionX * speed, directionY * speed)
+```
+
+Putting it all together, our final forever loop should look something like this.
+```block
+let Bullet: Sprite = null
+forever(function () {
+    
+    Bullet = sprites.create(img`
+        . . . . c c c b b b b b . . . . 
+        . . c c b 4 4 4 4 4 4 b b b . . 
+        . c c 4 4 4 4 4 5 4 4 4 4 b c . 
+        . e 4 4 4 4 4 4 4 4 4 5 4 4 e . 
+        e b 4 5 4 4 5 4 4 4 4 4 4 4 b c 
+        e b 4 4 4 4 4 4 4 4 4 4 5 4 4 e 
+        e b b 4 4 4 4 4 4 4 4 4 4 4 b e 
+        . e b 4 4 4 4 4 5 4 4 4 4 b e . 
+        8 7 e e b 4 4 4 4 4 4 b e e 6 8 
+        8 7 2 e e e e e e e e e e 2 7 8 
+        e 6 6 2 2 2 2 2 2 2 2 2 2 6 c e 
+        e c 6 7 6 6 7 7 7 6 6 7 6 c c e 
+        e b e 8 8 c c 8 8 c c c 8 e b e 
+        e e b e c c e e e e e c e b e e 
+        . e e b b 4 4 4 4 4 4 4 4 e e . 
+        . . . c c c c c e e e e e . . . 
+        `, SpriteKind.Projectile)
+        
+    
+    Bullet.setPosition(80,10)
+    Bullet.setVelocity(0,50)
+    pause(1000)
 })
+
 ```
----
 
-Try moving upwards again!
+## Further ideas
 
-
-
-## Setting the other directions
-
-Your hero should now be able to start and end it's moving animation! All you have to do now is repeat the last 2 steps for the other directions.
-
-## Conclusion 
-
-Easy af
+Now with this knowledge, you can try changing the speed of the bullets, how fast they fire, or even have the ghost move around while firing!
