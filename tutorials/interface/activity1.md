@@ -78,23 +78,13 @@ characterAnimations.clearCharacterState(mySprite)
 characterAnimations.setCharacterState(mySprite, characterAnimations.rule(Predicate.NotMoving))
 loops.forever()
 ```
-
-### @explicitHints true
-
-## Introduction @unplugged
-
 ```package
 arcade-character-animations
 arcade-character-animations=github:microsoft/arcade-character-animations
 ```
+### @explicitHints true
 
-![Psyched Monkey](/static/skillmap/interface/monkey.png "Psyched Monkey is Ready!" )
 
-**Are you ready to Fight me????**
-
-Big Monkey Small Man!
-
-## 
 
 **⭐Welcome⭐**
 
