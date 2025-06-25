@@ -1,7 +1,220 @@
-# Simple Platformer
+# Collision separation  
+```ghost
+//no idea why it didnt work when i just had the let sprite and flags on
+namespace SpriteKind {
+    export const none = SpriteKind.create()
+}
+controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
+    PlayerRender.setImage(img`
+        . . . . . . . . . . . . . . 2 2 
+        . . . . . . . . . . . . . . 2 2 
+        . . . . . . . . . . . . . . 2 2 
+        . . . . . . . . . . . . . . 2 2 
+        . . . . . . . . . . . . . . 2 2 
+        . . . . . . . . . . . . . . 2 2 
+        . . . . . . . . . . . . . . 2 2 
+        . . . . . . . . . . . . . . 2 2 
+        . . . . . . . . . . . . . . 2 2 
+        . . . . . . . . . . . . . . 2 2 
+        . . . . . . . . . . . . . . 2 2 
+        . . . . . . . . . . . . . . 2 2 
+        . . . . . . . . . . . . . . 2 2 
+        . . . . . . . . . . . . . . 2 2 
+        . . . . . . . . . . . . . . 2 2 
+        . . . . . . . . . . . . . . 2 2 
+        `)
+})
+controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
+    PlayerRender.setImage(img`
+        8 8 . . . . . . . . . . . . . . 
+        8 8 . . . . . . . . . . . . . . 
+        8 8 . . . . . . . . . . . . . . 
+        8 8 . . . . . . . . . . . . . . 
+        8 8 . . . . . . . . . . . . . . 
+        8 8 . . . . . . . . . . . . . . 
+        8 8 . . . . . . . . . . . . . . 
+        8 8 . . . . . . . . . . . . . . 
+        8 8 . . . . . . . . . . . . . . 
+        8 8 . . . . . . . . . . . . . . 
+        8 8 . . . . . . . . . . . . . . 
+        8 8 . . . . . . . . . . . . . . 
+        8 8 . . . . . . . . . . . . . . 
+        8 8 . . . . . . . . . . . . . . 
+        8 8 . . . . . . . . . . . . . . 
+        8 8 . . . . . . . . . . . . . . 
+        `)
+})
+let PlayerRender: Sprite = null
+tiles.setCurrentTilemap(tilemap`level1`)
+// Create visible part of player. Use animations on this
+PlayerRender = sprites.create(img`
+    9 9 . . . . . . . . . . . . . . 
+    9 9 . . . . . . . . . . . . . . 
+    9 9 . . . . . . . . . . . . . . 
+    9 9 . . . . . . . . . . . . . . 
+    9 9 . . . . . . . . . . . . . . 
+    9 9 . . . . . . . . . . . . . . 
+    9 9 . . . . . . . . . . . . . . 
+    9 9 . . . . . . . . . . . . . . 
+    9 9 . . . . . . . . . . . . . . 
+    9 9 . . . . . . . . . . . . . . 
+    9 9 . . . . . . . . . . . . . . 
+    9 9 . . . . . . . . . . . . . . 
+    9 9 . . . . . . . . . . . . . . 
+    9 9 . . . . . . . . . . . . . . 
+    9 9 . . . . . . . . . . . . . . 
+    9 9 . . . . . . . . . . . . . . 
+    `, SpriteKind.Player)
+let PlayerCollider = sprites.create(img`
+    3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+    3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+    3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+    3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+    3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+    3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+    3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+    3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+    3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+    3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+    3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+    3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+    3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+    3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+    3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+    3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+    `, SpriteKind.Player)
+controller.moveSprite(PlayerCollider)
+// Makes things ignore PlayerRender
+PlayerRender.setFlag(SpriteFlag.Ghost, true)
+scene.cameraFollowSprite(PlayerCollider)
+// Makes PlayerCollider invisible
+PlayerCollider.setFlag(SpriteFlag.Invisible, true)
+forever(function () {
+    PlayerRender.setPosition(PlayerCollider.x, PlayerCollider.y)
+})
+
+```
+
+
+## How collisions in makecode works
+
+In makecode, there's default behaviours to stop sprites from walking through walls. 
+It's easy to set up a level with tilemaps and walls, saving us a bit of time writing our own collision checks.
+
+## The issue
+
+The issue is that the default way collisions are checked is with the actual sprite itself.
+This can lead to some problems when we use different sprites and animations for a player or other entity. 
+When sprites change, this can cause them to clip into walls or bounce around.
+
+## Testing the issue
+
+This level has been set up to visualize the problem. Move the player (the rectangle) to the flower tiles, which are walls created in the tilemap editor.
+Make sure you are right beside the wall. 
+
+Now press the b button to swap your sprite, you'll now be stuck inside the wall. Swapping back will snap you back out of the wall.
+If you try it with the 1 tile wall, your red sprite can actually go over the wall! 
+
+This is an extreme example but it can cause many bugs when you start doing animations.
+
+## Fixing the issue
+
+A common concept in game programming is seperating the sprite from it's collider, which is what we will use to check if a sprite is colliding with a wall.
+I
+n makecode, we can do that by creating another sprite, let's call it PlayerCollider. For it's sprite, we should color in the entire area to make a large square.
+Using the ``||sprites:set [] auto destroy <on>||`` block, the dropdown options has one to set the sprite as invisible, which we will do.
+Using the same block, we can also set ghost mode on the playerRender on, this will prevent the render sprite from colliding with anything.
+
+---
+
+Lets change move playerRender to move the playerCollider instead, and set the camera to follow the collider as well. The last step is to 
+include a forever loop, that moves the playerRender position to the playerColliders x and y, basically having it follow the collider.
+#### ~ tutorialhint
+```block
+let PlayerRender : Sprite = null
+let PlayerCollider : Sprite = null
+forever(function () {
+    PlayerRender.setPosition(PlayerCollider.x, PlayerCollider.y)
+})
+```
+
+## Testing it out
+
+Let's try the level again! This time you should be unable to clip through the wall or have your sprite bounce around, the sprite is constrained by the invisible square collider.
+
+```template
+namespace SpriteKind {
+    export const none = SpriteKind.create()
+}
+controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
+    PlayerRender.setImage(img`
+        . . . . . . . . . . . . . . 2 2 
+        . . . . . . . . . . . . . . 2 2 
+        . . . . . . . . . . . . . . 2 2 
+        . . . . . . . . . . . . . . 2 2 
+        . . . . . . . . . . . . . . 2 2 
+        . . . . . . . . . . . . . . 2 2 
+        . . . . . . . . . . . . . . 2 2 
+        . . . . . . . . . . . . . . 2 2 
+        . . . . . . . . . . . . . . 2 2 
+        . . . . . . . . . . . . . . 2 2 
+        . . . . . . . . . . . . . . 2 2 
+        . . . . . . . . . . . . . . 2 2 
+        . . . . . . . . . . . . . . 2 2 
+        . . . . . . . . . . . . . . 2 2 
+        . . . . . . . . . . . . . . 2 2 
+        . . . . . . . . . . . . . . 2 2 
+        `)
+})
+controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
+    PlayerRender.setImage(img`
+    9 9 . . . . . . . . . . . . . . 
+    9 9 . . . . . . . . . . . . . . 
+    9 9 . . . . . . . . . . . . . . 
+    9 9 . . . . . . . . . . . . . . 
+    9 9 . . . . . . . . . . . . . . 
+    9 9 . . . . . . . . . . . . . . 
+    9 9 . . . . . . . . . . . . . . 
+    9 9 . . . . . . . . . . . . . . 
+    9 9 . . . . . . . . . . . . . . 
+    9 9 . . . . . . . . . . . . . . 
+    9 9 . . . . . . . . . . . . . . 
+    9 9 . . . . . . . . . . . . . . 
+    9 9 . . . . . . . . . . . . . . 
+    9 9 . . . . . . . . . . . . . . 
+    9 9 . . . . . . . . . . . . . . 
+    9 9 . . . . . . . . . . . . . . 
+        `)
+})
+let PlayerRender: Sprite = null
+tiles.setCurrentTilemap(tilemap`level`)
+PlayerRender = sprites.create(img`
+    9 9 . . . . . . . . . . . . . . 
+    9 9 . . . . . . . . . . . . . . 
+    9 9 . . . . . . . . . . . . . . 
+    9 9 . . . . . . . . . . . . . . 
+    9 9 . . . . . . . . . . . . . . 
+    9 9 . . . . . . . . . . . . . . 
+    9 9 . . . . . . . . . . . . . . 
+    9 9 . . . . . . . . . . . . . . 
+    9 9 . . . . . . . . . . . . . . 
+    9 9 . . . . . . . . . . . . . . 
+    9 9 . . . . . . . . . . . . . . 
+    9 9 . . . . . . . . . . . . . . 
+    9 9 . . . . . . . . . . . . . . 
+    9 9 . . . . . . . . . . . . . . 
+    9 9 . . . . . . . . . . . . . . 
+    9 9 . . . . . . . . . . . . . . 
+    `, SpriteKind.Player)
+controller.moveSprite(PlayerRender)
+scene.cameraFollowSprite(PlayerRender)
+
+
+```
 
 
 
+    
 ```jres
 {
     "transparency16": {
@@ -10,40 +223,18 @@
         "tilemapTile": true
     },
     "tile1": {
-        "data": "hwQQABAAAADMzMzMzMzMzLy7u7u7u7vLvMvMzMzMvMu8vMzMzMzLy7zMy8zMvMzLvMy8zMzLzMu8zMzLvMzMy7zMzLzLzMzLvMzMvMvMzMu8zMzLvMzMy7zMvMzMy8zLvMzLzMy8zMu8vMzMzMzLy7zLzMzMzLzLvLu7u7u7u8vMzMzMzMzMzA==",
-        "mimeType": "image/x-mkcd-f4",
-        "tilemapTile": true
-    },
-    "tile2": {
-        "data": "hwQQABAAAAAiIiIiIiIiIkJEREREREQkQiIiIiIiIiRCIiIiIiIiJEIiREQiIiIkQkJERCIkJCRCQiREJCQkJEJCREQiQiIkQkJERCRCIiRCQiREIiQkJEIiREQkJCQkQiIiIiIiIiRCIiIiIiIiJEIiIiIiIiIkQkRERERERCQiIiIiIiIiIg==",
-        "mimeType": "image/x-mkcd-f4",
-        "tilemapTile": true
-    },
-    "tile3": {
-        "data": "hwQQABAAAAB3d3d3d3d3d1dVVVVVVVV1V3d3d3d3d3VXd3d3d3d3dVdXVVVVVXd1V1dXV3d3d3VXV3VVd3d3dVdXV1d3d3d1V3d1dXV3d3VXd1VXdXd3dVd3dXV1d3d1V3dVVXV3d3VXd3d3d3d3dVd3d3d3d3d1V1VVVVVVVXV3d3d3d3d3dw==",
-        "mimeType": "image/x-mkcd-f4",
-        "tilemapTile": true
-    },
-    "tile4": {
-        "data": "hwQQABAAAABERERERERERFRVVVVVVVVFVEREREREREVURFRFRERERVRERVRERERFVFRVVUVEREVUVFVVVURFRVRUVVVVVUVFVFRVVVVVRUVUVFVVVURFRVRUVVVFRERFVERFVEREREVURFRFRERERVRERERERERFVFVVVVVVVUVERERERERERA==",
-        "mimeType": "image/x-mkcd-f4",
-        "tilemapTile": true
-    },
-    "tile5": {
-        "data": "hwQQABAAAACqqqqqqqqqqrq7u7u7u7uruqqqqqqqqqu6qqqqqqqqq7qqqqqqqqqruqqqqqqqqqu6qrurqqqqq7q6u7u7uqururq7u7u6q6u6qrurqqqqq7qqqqqqqqqruqqqqqqqqqu6qqqqqqqqq7qqqqqqqqqruru7u7u7u6uqqqqqqqqqqg==",
+        "data": "hwQQABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
         "mimeType": "image/x-mkcd-f4",
         "tilemapTile": true
     },
     "level": {
         "id": "level",
         "mimeType": "application/mkcd-tilemap",
-        "data": "MTAxZTAwMGEwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDIwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA0MDAwMDAwMDAwMDAwMDQwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAzMDAwMDAwMDEwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMTAxMDEwMDAwMDEwMDAwMDEwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDEwMTAxMDEwMTAxMDEwMTAxMDEwMDAwMDAwMDAwMDEwMDAwMDAwMDAwMDEwMTAxMDEwMTAxMDEwMTAxMDEwMTAxMDEwMTAxMDEwMTAxMDEwMTAxMDEwMTAxMDEwMTAxMDEwMTAxMDEwMTAxMDEwMTAxMDEwMTAxMDEwMTAxMDEwMTAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAyMDAwMDIwMDAwMDAwMDAwMDAwMDAwMDIwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMjIwMjIwMDAwMjAwMDAwMDAwMDAwMDAwMDAwMDIwMjIyMjIyMjIwMjAwMDAwMjAwMDAyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMg==",
+        "data": "MTAxMDAwMTAwMDAxMDEwMTAxMDEwMTAxMDEwMTAxMDEwMTAxMDEwMTAxMDEwMTAxMDEwMTAxMDEwMTAxMDEwMTAxMDEwMTAxMDEwMTAxMDEwMTAxMDEwMTAxMDEwMTAxMDEwMTAxMDEwMTAxMDEwMTAxMDEwMTAxMDEwMjAyMDEwMTAxMDEwMTAxMDEwMTAxMDEwMTAxMDEwMTAyMDIwMTAxMDEwMTAxMDEwMTAxMDEwMTAxMDEwMTAxMDIwMjAxMDEwMTAxMDEwMTAxMDEwMTAxMDEwMTAxMDEwMjAyMDEwMTAxMDEwMTAxMDEwMTAxMDEwMTAxMDEwMTAyMDIwMTAxMDEwMTAxMDEwMTAxMDEwMTAxMDEwMTAxMDIwMTAxMDEwMTAxMDEwMTAxMDEwMTAxMDEwMTAxMDEwMjAxMDEwMTAxMDEwMTAxMDEwMTAxMDEwMTAxMDEwMTAyMDEwMTAxMDEwMTAxMDEwMTAxMDEwMTAxMDEwMTAxMDIwMTAxMDEwMTAxMDEwMTAxMDEwMTAxMDEwMTAxMDEwMTAxMDEwMTAxMDEwMTAxMDEwMTAxMDEwMTAxMDEwMTAxMDEwMTAxMDEwMTAxMDEwMTAxMDEwMTAxMDEwMTAxMDEwMTAxMDEwMTAxMDEwMTAxMDEwMTAxMDEwMTAxMDEwMTAxMDEwMTAxMDEwMTAxMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAyMjAwMDAwMDAwMDAwMDAwMjIwMDAwMDAwMDAwMDAwMDIyMDAwMDAwMDAwMDAwMDAyMjAwMDAwMDAwMDAwMDAwMjIwMDAwMDAwMDAwMDAwMDAyMDAwMDAwMDAwMDAwMDAwMjAwMDAwMDAwMDAwMDAwMDIwMDAwMDAwMDAwMDAwMDAyMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMA==",
         "tileset": [
             "myTiles.transparency16",
             "myTiles.tile1",
-            "myTiles.tile3",
-            "myTiles.tile4",
-            "myTiles.tile5"
+            "sprites.castle.tileGrass2"
         ]
     },
     "*": {
@@ -53,202 +244,3 @@
     }
 }
 ```
-
-```template
-scene.setBackgroundColor(11)
-tiles.setTilemap(tilemap`level`)
-```
-
-## Welcome @unplugged
-
-Now let's take a look at the [__*sidescrolling*__](#scrolld "games that are viewed from the side, with most of the action happening horizontally") 
-[__*platformer*__](#plat "games that rely on jump and run as their main mechanic").  
-
-This kind of game peeks in on the action from the side, using "jump" and "run"
-as the main mechanic.  
-
-By the time you finish this set of tutorials, you should know all you need 
-to make a fun and engaging arcade game worth sharing.
-
-![Our first platformer](/static/skillmaps/platformer/platformer1.gif "Look what we're about to learn today!")
-
-
-## Create the player
-
-The first thing any good platformer needs is a main character. 🐒
-
-In Arcade, our characters are [__*sprites*__](#sprote "2-D images that move on the screen").  
-We'll want to create our main sprite and get it moving before we do anything else. 
-<hr>
-
-🔲 From the ``||sprites:Sprites||`` category, drag the ``||variables:set [mySprite] to sprite [ ] of kind [Player]||`` 
-block to the end of the ``||loops:on start||`` container.
-
-🔲 Click on the grey box in the middle of your
- ``||variables:set [mySprite] to sprite [ ] of kind [Player]||`` block
- to open the sprite editor.  From there, you can switch over to "Gallery"
- and choose a pre-drawn character.
-<hr/>
->>*Tip: Don't like any of the predrawn characters? Stay in the "Editor"
-and create one of your own*!
-
-
-```blocks
-scene.setBackgroundColor(11)
-tiles.setTilemap(tilemap`level`)
-// @highlight
-let mySprite = sprites.create(img`
-. . . . . f f f f f . . . . . . 
-. . . . f e e e e e f . . . . . 
-. . . f d d d d d e e f . . . . 
-. . f f f d d f f d e f f . . . 
-. c d d e e d d d d e d d f . . 
-. c c d d d d c d d e d f f f . 
-. c d c c c c d d d e d f b d f 
-. . c d d d d d d e e f f d d f 
-. . . c d d d d e e f f e f f f 
-. . . . f f f e e f e e e f . . 
-. . . . f e e e e e e e f f f . 
-. . . f e e e e e e f f f e f . 
-. . f f e e e e f f f f f e f . 
-. f b d f e e f b b f f f e f . 
-. f d d f e e f d d b f f f f . 
-. f f f f f f f f f f f f f . . 
-    `, SpriteKind.Player)
-```
-
-## Move the player
-
-🢀 Now we need to get the player moving 🢂
-<hr/>
-
-🔲 Drag a ``||controller:move [mySprite] with buttons ⊕||`` block.   
-to the end of the ``||loops:on start||`` container
-
-🔲 Press the ⊕ button on the new block and change the [__*vy*__](#whatVY "vertical velocity") 
-argument to **0** so that the player won't move up or down with the joypad.
-
-<hr/>
-**Now you're ready to give your game a try in the simulator!**
-<br/>
-
-```blocks
-scene.setBackgroundColor(11)
-tiles.setTilemap(tilemap`level`)
-let mySprite = sprites.create(img`
-. . . . . f f f f f . . . . . . 
-. . . . f e e e e e f . . . . . 
-. . . f d d d d d e e f . . . . 
-. . f f f d d f f d e f f . . . 
-. c d d e e d d d d e d d f . . 
-. c c d d d d c d d e d f f f . 
-. c d c c c c d d d e d f b d f 
-. . c d d d d d d e e f f d d f 
-. . . c d d d d e e f f e f f f 
-. . . . f f f e e f e e e f . . 
-. . . . f e e e e e e e f f f . 
-. . . f e e e e e e f f f e f . 
-. . f f e e e e f f f f f e f . 
-. f b d f e e f b b f f f e f . 
-. f d d f e e f d d b f f f f . 
-. f f f f f f f f f f f f f . . 
-    `, SpriteKind.Player)
-    // @highlight
-controller.moveSprite(mySprite, 100, 0)
-```
-
-## Add gravity
-
-To make the game feel more realistic, let's add some gravity.
-
-To accomplish that, we can add [__*acceleration*__](#accel "increased speed in a direction") to "pull down" on our sprite.
-<hr/>
-🔲 Drag a ``||sprites:set [mySprite] [x] to [0]||`` block to the end of 
-the ``||loops:on start||`` container.
-
-🔲 Click the dropdown to change **x** to **ay (acceleration y)** 
-
-🔲 Replace **0** with **500**.
-<br/>
-
-
-
-```blocks
-scene.setBackgroundColor(11)
-tiles.setTilemap(tilemap`level`)
-let mySprite = sprites.create(img`
-. . . . . f f f f f . . . . . . 
-. . . . f e e e e e f . . . . . 
-. . . f d d d d d e e f . . . . 
-. . f f f d d f f d e f f . . . 
-. c d d e e d d d d e d d f . . 
-. c c d d d d c d d e d f f f . 
-. c d c c c c d d d e d f b d f 
-. . c d d d d d d e e f f d d f 
-. . . c d d d d e e f f e f f f 
-. . . . f f f e e f e e e f . . 
-. . . . f e e e e e e e f f f . 
-. . . f e e e e e e f f f e f . 
-. . f f e e e e f f f f f e f . 
-. f b d f e e f b b f f f e f . 
-. f d d f e e f d d b f f f f . 
-. f f f f f f f f f f f f f . . 
-    `, SpriteKind.Player)
-controller.moveSprite(mySprite, 100, 0)
-// @highlight
-mySprite.ay = 500
-```
-
-## Jump Pt. 1
-
-Now that the player is on the ground, we can make them jump!
-
-Let's attach a jumping action to the 🅐 button.
-<hr/>
-
-🔲 Start by dragging an ``||controller:on [A] button [pressed]||`` block into the workspace.
-
-🔲 Inside of that, add ``||sprites:set [mySprite] [x] to [0]||`` . 
-
-🔲 To choose the attribute for the player's [__*vertical velocity*__](#whatVelY "speed in the up/down direction"),
-click the dropdown menu and change **x** to **vy (velocity y)**.
-
-🔲 The player will jump upward if you change **0** to something smaller.
-Try  **-150** or **-200**.  
-<br/>
-
-
-```blocks
-scene.setBackgroundColor(11)
-tiles.setTilemap(tilemap`level`)
-let mySprite = sprites.create(img`
-. . . . . f f f f f . . . . . . 
-. . . . f e e e e e f . . . . . 
-. . . f d d d d d e e f . . . . 
-. . f f f d d f f d e f f . . . 
-. c d d e e d d d d e d d f . . 
-. c c d d d d c d d e d f f f . 
-. c d c c c c d d d e d f b d f 
-. . c d d d d d d e e f f d d f 
-. . . c d d d d e e f f e f f f 
-. . . . f f f e e f e e e f . . 
-. . . . f e e e e e e e f f f . 
-. . . f e e e e e e f f f e f . 
-. . f f e e e e f f f f f e f . 
-. f b d f e e f b b f f f e f . 
-. f d d f e e f d d b f f f f . 
-. f f f f f f f f f f f f f . . 
-    `, SpriteKind.Player)
-controller.moveSprite(mySprite, 100, 0)
-mySprite.ay = 500
-// @highlight
-controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
-    mySprite.vy = -200
-})
-```
-
-## Done
-
-🔥 **That's it! We've created a simple platformer game.** 🔥  
-
-In the next lesson we'll learn how to add obstacles and goals.
