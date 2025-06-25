@@ -78,10 +78,7 @@ characterAnimations.clearCharacterState(mySprite)
 characterAnimations.setCharacterState(mySprite, characterAnimations.rule(Predicate.NotMoving))
 loops.forever()
 ```
-```package
-arcade-character-animations
-arcade-character-animations=github:microsoft/arcade-character-animations
-```
+
 ### @explicitHints true
 
 
