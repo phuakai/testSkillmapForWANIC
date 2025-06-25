@@ -79,6 +79,10 @@ characterAnimations.clearCharacterState(mySprite)
 characterAnimations.setCharacterState(mySprite, characterAnimations.rule(Predicate.NotMoving))
 loops.forever()
 
+function  () {
+	
+}
+
 ```
 
 ### @explicitHints true
@@ -254,7 +258,7 @@ In makecode, we use the ``||math:square root [ ] ||`` and ``||math: [ ] **[ ]||`
 ## Getting the distance
 
 To make things neater, we can use variables to keep track of our different values.
-The x and y components of the vector can be split into two variables. 
+The x and y components of the vector can be split into two variables. You can use the math blocks you made in step 7.
 
 ```block
 let Bullet: Sprite = null
@@ -288,6 +292,7 @@ Bullet.setVelocity(directionX * speed, directionY * speed)
 Putting it all together, our final forever loop should look something like this.
 ```block
 let Bullet: Sprite = null
+let mySprite: Sprite = null
 forever(function () {
     
     Bullet = sprites.create(img`
@@ -309,14 +314,103 @@ forever(function () {
         . . . c c c c c e e e e e . . . 
         `, SpriteKind.Projectile)
         
-    
-    Bullet.setPosition(80,10)
-    Bullet.setVelocity(0,50)
+       directionX = mySprite.x - Bullet.x
+    directionY = mySprite.y - Bullet.y
+    distance = Math.sqrt(directionX ** 2 + directionY ** 2)
+    directionX = directionX / distance
+    directionY = directionY / distance
+    mySprite.setVelocity(directionX * speed, directionY * speed)
+
     pause(1000)
 })
 
 ```
 
-## Further ideas
+## Turning code into reuseable functions
 
-Now with this knowledge, you can try changing the speed of the bullets, how fast they fire, or even have the ghost move around while firing!
+What if we wanted other sprites to also move towards the player? Or instead of going towards the player, to a different sprite? 
+
+Instead of redoing all of the code for each sprite we wanted to move, we can instead turn our existing code into a function.
+Functions are blocks that are made up of other code blocks, and usually takes in some input values (parameters), and outputs values.
+
+In this case, we can make a function that takes in a sprite, the destination sprite, and a speed. This will then allow us to have different sprites that all use the same function,
+and can move to different destinations.
+
+## Creating a function
+
+First, let's navigate to the function tab, it's located in the advanced tab. Pressing make a function will open up an editor.
+This is where you will specify what the paremeters for the function are, as well as naming the function. In makecode, we cannot have functions output any values. 
+
+We want to reuse the movement code, so we should add two sprite parameters and a number parameter for the speed. After clicking on the parameter to add, you can rename them as well.
+
+Your final function should look something like this.
+```block
+function moveTo (startSprite: Sprite, destinationSprite: Sprite, speed: number) {
+	
+}
+```
+
+## Adding code to functions
+
+Let's move some of our existing code to this new function, we can move almost all of the code in the forever loop to this new function. 
+Move the code that sets the direction variables, as well as the code for setting velocity to this function. Now instead of using my sprite and bullet as the variables,
+change them to use the ones from the function. Putting them all together, your final function should be like this.
+
+```block 
+function moveTo (startSprite: Sprite, destinationSprite: Sprite, speed: number) {
+    directionX = destinationSprite.x - startSprite.x
+    directionY = destinationSprite.y - startSprite.y
+    distance = Math.sqrt(directionX ** 2 + directionY ** 2)
+    directionX = directionX / distance
+    directionY = directionY / distance
+    startSprite.setVelocity(directionX * speed, directionY * speed)
+}
+
+
+
+```
+
+## Using functions
+
+Now, with the function completed, all we have to do is use the function in our forever loop. Calling a function is what the term is, and you should see your new function in the functions tab.
+With your forever block, add the function into it and set it's parameters to the bullet and your player.
+
+```block
+function moveTo (startSprite: Sprite, destinationSprite: Sprite, speed: number) {
+    directionX = destinationSprite.x - startSprite.x
+    directionY = destinationSprite.y - startSprite.y
+    distance = Math.sqrt(directionX ** 2 + directionY ** 2)
+    directionX = directionX / distance
+    directionY = directionY / distance
+    startSprite.setVelocity(directionX * speed, directionY * speed)
+}
+let Bullet: Sprite = null
+forever(function () {
+    
+    Bullet = sprites.create(img`
+        . . . . c c c b b b b b . . . . 
+        . . c c b 4 4 4 4 4 4 b b b . . 
+        . c c 4 4 4 4 4 5 4 4 4 4 b c . 
+        . e 4 4 4 4 4 4 4 4 4 5 4 4 e . 
+        e b 4 5 4 4 5 4 4 4 4 4 4 4 b c 
+        e b 4 4 4 4 4 4 4 4 4 4 5 4 4 e 
+        e b b 4 4 4 4 4 4 4 4 4 4 4 b e 
+        . e b 4 4 4 4 4 5 4 4 4 4 b e . 
+        8 7 e e b 4 4 4 4 4 4 b e e 6 8 
+        8 7 2 e e e e e e e e e e 2 7 8 
+        e 6 6 2 2 2 2 2 2 2 2 2 2 6 c e 
+        e c 6 7 6 6 7 7 7 6 6 7 6 c c e 
+        e b e 8 8 c c 8 8 c c c 8 e b e 
+        e e b e c c e e e e e c e b e e 
+        . e e b b 4 4 4 4 4 4 4 4 e e . 
+        . . . c c c c c e e e e e . . . 
+        `, SpriteKind.Projectile)
+        
+    moveTo(Bullet, mySprite, 100)
+})
+
+```
+
+## Conclusion
+
+Now with this function, you can freely reuse the movement code without having to do the tedious work, try making new functions or adding some movement to your ghost next!
