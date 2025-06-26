@@ -92,9 +92,6 @@ Let's learn how to use the character extension to make our sprite move in differ
 
 ## The character block tab
 
-
----
-
 🔲 First, lets take a look at the new tab, ``||characterAnimations:Character||``! This tab lists a bunch of useful blocks that are used when you want to add animations to your sprites.
 
 ---
@@ -129,7 +126,6 @@ mySprite = sprites.create(img`
 
 ## Playing animations
 
-
 In the instructions, block descriptions for the block you need will 
 often be highlighted in the same color as the toolbox 
 category where they live. 
@@ -160,6 +156,7 @@ mySprite,
 500,
 characterAnimations.rule(Predicate.NotMoving)
 )
+
 ```
 
 will let you play an animation whenever a condition is true.
@@ -171,8 +168,6 @@ The tab also gives a few useful conditions such as
 characterAnimations.setCharacterState(mySprite, characterAnimations.rule(Predicate.NotMoving))
 ```
 ## Adding an animation
-
-
 
 Let's start by adding a ``||characterAnimations.loopFrames||`` block into the on start container.
 
