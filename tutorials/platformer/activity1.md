@@ -131,6 +131,7 @@ Using the same block, we can also set ghost mode on the playerRender on, this wi
 
 Let's change move playerRender to move the playerCollider instead, and set the camera to follow the collider as well. The last step is to 
 include a forever loop, that moves the playerRender position to the playerColliders x and y, basically having it follow the collider.
+
 #### ~ tutorialhint
 ```block
 let PlayerRender : Sprite = null
