@@ -87,6 +87,8 @@ loops.forever()
 
 Let's learn how to use the character extension to make our sprite move in different directions!
 
+If you are stuck or don't understand any step, do raise your hand to get a TA or ask the people around you!
+
 ---
 
 
@@ -326,9 +328,4 @@ Your hero should now be able to start and end it's moving animation! All you hav
 
 ## Conclusion 
 
-Easy af
-
-You've learned everything you need to know to graduate to a new tutorial.
-
-Now you can continue on and learn even more tricks for
-creating games with MakeCode Arcade!  
+Well done! You can try making animations for other sprites in your own game now.
