@@ -290,6 +290,7 @@ Putting it all together, our final forever loop should look something like this.
 ```block
 let Bullet: Sprite = null
 let mySprite: Sprite = null
+let Ghost : Sprite = null
 forever(function () {
     
     Bullet = sprites.create(img`
@@ -310,7 +311,8 @@ forever(function () {
         . e e b b 4 4 4 4 4 4 4 4 e e . 
         . . . c c c c c e e e e e . . . 
         `, SpriteKind.Projectile)
-        
+
+    Bullet.setPosition(Ghost.x, Ghost.y)
        directionX = mySprite.x - Bullet.x
     directionY = mySprite.y - Bullet.y
     distance = Math.sqrt(directionX ** 2 + directionY ** 2)
