@@ -1,6 +1,6 @@
 # sample
-* name: Game Maker Guide
-* description: Level up your game making skills by completing the tutorials in this guide.
+* name: Advanced Concepts
+* description: This skillmap contains different concepts that will be useful for making your games.
 
 ## Directional movement and shooting
 * name: Learn to move and shoot in different directions!
@@ -9,41 +9,37 @@
 
 ### Moving with animations
 
-* name: Moving in different directions.
+* name: Moving in different directions with animations.
 * type: tutorial
-* description: This will teach you how to have your characters move in different directions with different animations!
-* tags: easy
 
 * url: https://github.com/phuakai/testSkillmapForWANIC/tutorials/interface/activity1
 * imageUrl: https://raw.githubusercontent.com/microsoft/pxt-skillmap-sample/main/img/interface/activity1.png
 
-## space
+## Vectors and projectiles
 * name: IN PROGRESS
 * description: Lets write more tutorials!
 * completionUrl: https://microsoft.github.io/pxt-skillmap-sample/certificates/design-a-space-explorer.pdf
 
-### Please follow my tutorials or die
+### Vectors and directional shooting 
 
 * name: Vectors and directional shooting.
 * type: tutorial
 * description: This tutorial teaches the concept of vectors and how to use them to have sprites move in any direction.
-* tags: easy
 
 * url: https://github.com/phuakai/testSkillmapForWANIC/tutorials/space/activity1
 * imageUrl: https://raw.githubusercontent.com/microsoft/pxt-skillmap-sample/main/img/space/activity1.png
 
 
 
-## platformer
-* name: Learn to Make a Platformer
-* description: A skillmap that takes you through how to build a platformer with multiple levels.
+## Collision separation.
+* name: Collision separation.
+* description: 
 * completionUrl: https://microsoft.github.io/pxt-skillmap-sample/certificates/learn-to-make-a-platformer.pdf
 
 ### platformer-activity1
 
-* name: Simple Platformer
+* name: Collision separation
 * type: tutorial
-* description: Learn how to make a player character that can jump and move around a tilemap.
+* description: This tutorial teaches the concept of how and why it is important to separate your sprites collision from its visuals.
 * url: https://github.com/phuakai/testSkillmapForWANIC/tutorials/platformer/activity1
 * imageUrl: https://raw.githubusercontent.com/microsoft/pxt-skillmap-sample/main/img/platformer/activity1.png
-* tags: easy
