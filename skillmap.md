@@ -29,6 +29,15 @@
 * url: https://github.com/phuakai/testSkillmapForWANIC/tutorials/space/activity1
 * imageUrl: https://raw.githubusercontent.com/microsoft/pxt-skillmap-sample/main/img/space/activity1.png
 
+### Arrays
+
+* name: Arrays
+* type: tutorial
+* description: Learn how arrays can be used.
+
+* url: https://github.com/phuakai/testSkillmapForWANIC/tutorials/space/activity2
+* imageUrl: https://raw.githubusercontent.com/microsoft/pxt-skillmap-sample/main/img/space/activity2.png
+
 
 
 ## Collision separation.
