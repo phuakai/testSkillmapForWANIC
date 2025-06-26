@@ -119,7 +119,7 @@ If you try it with the 1 tile wall, your red sprite can actually go over the wal
 
 This is an extreme example but it can cause many bugs when you start doing animations.
 
-## Fixing the issue
+## Creating a collider sprite
 
 A common concept in game programming is separating  the sprite from its collider, which is what we will use to check if a sprite is colliding with a wall.
 
@@ -127,7 +127,7 @@ In makecode, we can do that by creating another sprite, let's call it PlayerColl
 Using the ``||sprites:set [] auto destroy <on>||`` block, the dropdown options has one to set the sprite as invisible, which we will do.
 Using the same block, we can also set ghost mode on the playerRender on, this will prevent the render sprite from colliding with anything.
 
----
+## Moving the collider and render
 
 Let's change move playerRender to move the playerCollider instead, and set the camera to follow the collider as well. The last step is to 
 include a forever loop, that moves the playerRender position to the playerColliders x and y, basically having it follow the collider.
