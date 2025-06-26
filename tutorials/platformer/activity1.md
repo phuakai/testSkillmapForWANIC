@@ -46,7 +46,6 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
 })
 let PlayerRender: Sprite = null
 tiles.setCurrentTilemap(tilemap`level1`)
-// Create visible part of player. Use animations on this
 PlayerRender = sprites.create(img`
     9 9 . . . . . . . . . . . . . . 
     9 9 . . . . . . . . . . . . . . 
@@ -84,10 +83,8 @@ let PlayerCollider = sprites.create(img`
     3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
     `, SpriteKind.Player)
 controller.moveSprite(PlayerCollider)
-// Makes things ignore PlayerRender
 PlayerRender.setFlag(SpriteFlag.Ghost, true)
 scene.cameraFollowSprite(PlayerCollider)
-// Makes PlayerCollider invisible
 PlayerCollider.setFlag(SpriteFlag.Invisible, true)
 forever(function () {
     PlayerRender.setPosition(PlayerCollider.x, PlayerCollider.y)
@@ -95,6 +92,11 @@ forever(function () {
 
 ```
 
+## Welcome!
+
+In this tutorial, we will be learning the importance of separating your collisions from the sprite.
+
+If you are stuck or don't understand any step, do raise your hand to get a TA or ask the people around you!
 
 ## How collisions in makecode works
 
@@ -119,15 +121,15 @@ This is an extreme example but it can cause many bugs when you start doing anima
 
 ## Fixing the issue
 
-A common concept in game programming is seperating the sprite from it's collider, which is what we will use to check if a sprite is colliding with a wall.
-I
-n makecode, we can do that by creating another sprite, let's call it PlayerCollider. For it's sprite, we should color in the entire area to make a large square.
+A common concept in game programming is separating  the sprite from its collider, which is what we will use to check if a sprite is colliding with a wall.
+
+In makecode, we can do that by creating another sprite, let's call it PlayerCollider. For its sprite, we should color in the entire area to make a large square.
 Using the ``||sprites:set [] auto destroy <on>||`` block, the dropdown options has one to set the sprite as invisible, which we will do.
 Using the same block, we can also set ghost mode on the playerRender on, this will prevent the render sprite from colliding with anything.
 
 ---
 
-Lets change move playerRender to move the playerCollider instead, and set the camera to follow the collider as well. The last step is to 
+Let's change move playerRender to move the playerCollider instead, and set the camera to follow the collider as well. The last step is to 
 include a forever loop, that moves the playerRender position to the playerColliders x and y, basically having it follow the collider.
 #### ~ tutorialhint
 ```block
@@ -141,6 +143,10 @@ forever(function () {
 ## Testing it out
 
 Let's try the level again! This time you should be unable to clip through the wall or have your sprite bounce around, the sprite is constrained by the invisible square collider.
+
+## Conclusion
+
+Now, you should be able to implement this in your own games, preventing a few nasty bugs.
 
 ```template
 namespace SpriteKind {
