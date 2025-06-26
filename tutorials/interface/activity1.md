@@ -94,7 +94,7 @@ If you are stuck or don't understand any step, do raise your hand to get a TA or
 
 ## The character block tab
 
-🔲 First, lets take a look at the new tab, ``||characterAnimations:Character||``! This tab lists a bunch of useful blocks that are used when you want to add animations to your sprites.
+First, lets take a look at the new tab, ``||characterAnimations:Character||``! This tab lists a bunch of useful blocks that are used when you want to add animations to your sprites.
 
 ---
 
@@ -128,11 +128,6 @@ mySprite = sprites.create(img`
 
 ## Playing animations
 
-In the instructions, block descriptions for the block you need will 
-often be highlighted in the same color as the toolbox 
-category where they live. 
-
-**Looping** This block 
 
 ```block
 characterAnimations.loopFrames(
@@ -161,6 +156,7 @@ characterAnimations.rule(Predicate.NotMoving)
 
 ```
 
+**Looping** This block 
 will let you play an animation whenever a condition is true.
 
 ---
@@ -269,7 +265,7 @@ Lastly, set the condition to **moving up**.
 
 ## Setting conditions
 
-If you try and move up now, you'll notice that no animation plays! That's because we must first set the conditions that control if the animation runs.
+It's also good to keep track of which way the player is currently facing.
 
 Let's add them by using a on button press container.
 ```block
@@ -292,7 +288,6 @@ Now set the state to facing up and moving up.
 ```block
 characterAnimations.setCharacterState(mySprite, characterAnimations.rule(Predicate.FacingUp, Predicate.MovingUp))
 ```
----
 
 Try moving the character up and see what happens!
 
@@ -308,7 +303,7 @@ controller.up.onEvent(ControllerButtonEvent.Released, function ())
 ```
 ---
 
-Now add another set state block and set this one to just facing up. It will be useful to be able to know which direction the player last moved in.
+Now add another set state block and set this one to just facing up.
 
 #### ~ tutorialhint
 ```block
