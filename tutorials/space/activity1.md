@@ -1,4 +1,4 @@
-# Get to Know MakeCode Arcade 
+# Vectors and shooting projectiles
 
 
 ```ghost
@@ -87,11 +87,11 @@ function  () {
 
 ### @explicitHints true
 
-## 
-
 **⭐Welcome⭐**
 
 In this tutorial, we will be learning how to make a ghost enemy shoot in the player characters direction.
+
+If you are stuck or don't understand any step, do raise your hand to get a TA or ask the people around you!
 
 ---
 
@@ -146,8 +146,6 @@ Ghost.setPosition(80, 10)
 
 ```
 
-
-
 ## Spawning projectiles
 
 Let's start by having a projectile spawn. While makecode comes with a set projectile block, we will not be using that as it comes with a few issues.
@@ -156,11 +154,11 @@ Let's start by having a projectile spawn. While makecode comes with a set projec
 
 By using set sprite and set sprite location, we can have a projectile spawn on top of our ghost.
 Place a ``||sprites.set Sprite||`` block and a ``||sprites.set position||`` block in the on start container. 
-Give this sprite a new variable name, like "bullet" and set it's kind to projectile.
+Give this sprite a new variable name, like "bullet" and set its kind to projectile.
 
 ---
 
-Use any sprite you want the ghost to shoot, and try to set it's position to the same spot as the ghost using the ghosts x and y.
+Use any sprite you want the ghost to shoot, and try to set its position to the same spot as the ghost using the ghosts x and y.
 #### ~ tutorialhint
 ```block
 let Bullet : Sprite = null
@@ -223,7 +221,6 @@ Before we make our bullets move to the player, we must first understand **vector
 from the bullet to the player, we should take the player coordinate and subtract the bullets coordinate.
 A good way to remember is always subtract the destination point from the origin.
 
-
 ## Firing at the player.
 
 We can change our set velocity block to do the calculation
@@ -237,8 +234,8 @@ let mySprite: Sprite = null
 Bullet.setVelocity(mySprite.x - Bullet.x, mySprite.y - Bullet.y)
 ```
 ---
-Try moving around in the level now!
 
+Try moving around in the level now!
 
 ## Vector normalization
 
@@ -267,7 +264,7 @@ let mySprite: Sprite = null
     directionY = mySprite.y - Bullet.y
 ```
 
-Then the length can be it's own variable, direction.
+Then the length can be its own variable, direction.
 
 ```block
  distance = Math.sqrt(directionY ** 2 + directionX ** 2)
