@@ -404,8 +404,12 @@ forever(function () {
         . e e b b 4 4 4 4 4 4 4 4 e e . 
         . . . c c c c c e e e e e . . . 
         `, SpriteKind.Projectile)
+
+    Bullet.setPosition(Ghost.x, Ghost.y)
+    
         
     moveTo(Bullet, mySprite, 100)
+    pause(1000)
 })
 
 ```
