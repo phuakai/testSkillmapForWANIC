@@ -1,8 +1,7 @@
 # MakeCode Skill Map Sample
 
-This is an example skill map that contains three separate learning paths.You can view the content here:
-https://arcade.makecode.com/skillmap#github:microsoft/pxt-skillmap-sample/skillmap.md
-
+This is a forked skillmap that I'm testing for use in classrooms. It contains examples that are not covered in the microsoft example.
+Only activity one is used. 
 Github-hosted skill maps are loaded in the same manner as tutorials, with a URL fragment
 formatted as follows:
 
