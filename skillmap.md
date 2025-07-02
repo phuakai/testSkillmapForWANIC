@@ -25,7 +25,7 @@
 * name: Vectors and directional shooting.
 * type: tutorial
 * description: This tutorial teaches the concept of vectors and how to use them to have sprites move in any direction.
-
+* next: Arrays
 * url: https://github.com/phuakai/testSkillmapForWANIC/tutorials/space/activity1
 * imageUrl: https://raw.githubusercontent.com/microsoft/pxt-skillmap-sample/main/img/space/activity1.png
 
